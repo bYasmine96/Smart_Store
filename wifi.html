@@ -1,0 +1,51 @@
+<head>
+    <title>Yun Messages</title>
+    <script type="text/javascript" src="zepto.js"></script>	
+    <script type="text/javascript" src="jquery-1.11.1.min.js"></script>	
+    </head>
+    <body>
+    <H1> Insert your message </H1> 
+    <form name="msgform"  onSubmit="return sendMsg()">
+    <input type="text"  name="msg">
+    <input type="submit" value="Yun it!" >
+    </form>
+    <button onclick="sendMsg();">send ajax</button>
+    <button onclick="change(1);">turn on l13</button>
+    <button onclick="change(0);">turn off l13</button>
+    <a href="http://192.168.240.1/arduino/digital/13/0">off l13</a>
+    <a href="http://192.168.240.1/arduino/digital/13/1">off l13</a>
+    <!-- <input type="checkbox" onchange="change(this.value);" name="l13" id="l13"> -->
+    <script type="text/javascript">	
+        function change(value){
+            /*
+            $.get('http://192.168.240.1/arduino/digital/13/' +value,
+        function(data){
+            alert("Success");
+            alert(data);
+        }
+    );*/
+    var link = '192.168.240.1/arduino/digital/13/' +value;
+    $.ajax({url: link, success: function(data){
+        alert("sent");
+       console.log(data);
+    },
+    error:function(){
+        alert('error on link ');
+    }
+    });
+            alert(link);
+        }
+    function sendMsg() {	
+        var txt = document.msgform.msg.value;
+    $.get('http://192.168.240.1/arduino/msg/' + txt + '/',
+        function(data){
+            alert("Success");
+            alert(data);
+        }
+    );
+    return false;
+    }
+    </script>
+        <script type="text/javascript" src="jquery-1.11.1.min.js"></script>	
+    </body>
+    
